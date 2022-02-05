@@ -1,0 +1,78 @@
+version: "3.7"
+services:
+  naming-server:
+    #image: harshadnelwadkar/eureka-server:0.0.1-SNAPSHOT
+    build: ./EurekaServer
+    ports:
+      - "8761:8761"
+    networks:
+      - my-network
+
+      
+  config-server:
+    image: harshadnelwadkar/config-server:0.0.1-SNAPSHOT
+    # mem_limit: 700m
+    ports:
+      - "8888:8888"
+    networks:
+      - my-network
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka/
+   
+   
+  service-zero:
+    image: harshadnelwadkar/service-zero:0.0.1-SNAPSHOT
+    ports:
+      - "8089:8089"
+    networks:
+      - my-network
+    depends_on:
+      - naming-server
+      - config-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka/
+      SPRING.CONFIG.IMPORT: optional:configserver:http://config-server:8888/
+         
+  service-one:
+    image: harshadnelwadkar/service-one:0.0.1-SNAPSHOT
+    ports:
+      - "8081:8081"
+    networks:
+      - my-network
+    depends_on:
+      - naming-server
+      - config-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka/
+      SPRING.CONFIG.IMPORT: optional:configserver:http://config-server:8888/
+      
+  service-two:
+    image: harshadnelwadkar/service-two:0.0.1-SNAPSHOT
+    ports:
+      - "8091:8091"
+    networks:
+      - my-network
+    depends_on:
+      - naming-server
+      - config-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka/
+      SPRING.CONFIG.IMPORT: optional:configserver:http://config-server:8888/
+      
+  service-master:
+    image: harshadnelwadkar/service-master:0.0.1-SNAPSHOT
+    ports:
+      - "9080:9080"
+    networks:
+      - my-network
+    depends_on:
+      - naming-server
+      - config-server
+    environment:
+      EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://naming-server:8761/eureka/
+      SERVICE.ONE.URL: http://service-one:9081
+      SERVICE.TWO.URL: http://service-two:9082
+      SPRING.CONFIG.IMPORT: optional:configserver:http://config-server:8888/
+      
+networks:
+  my-network:

@@ -1,0 +1,192 @@
+
+
+##  Eureka Server 
+
+http://localhost:8761/
+
+
+## Service One
+//-- 1 controller
+
+http://localhost:8081/one/hello
+
+http://localhost:8081/one/service-info
+
+//-- ConfigClientTestController
+
+http://localhost:8081/one/welcome-message
+
+http://localhost:8081/one/hello-service
+
+http://localhost:8081/one/service-one-code
+
+//-- MicroserviceController
+
+http://localhost:8081/one/get-data
+
+http://localhost:8081/one/post-data
+
+
+//--- MicroserviceController
+		
+http://localhost:8081/one/hello-service-one
+	
+http://localhost:8081/one/service-one-code
+
+
+## Service TWO 
+
+// -----
+
+http://localhost:8091/two/hello
+
+http://localhost:8091/two/service-info
+
+//---
+
+http://localhost:8091/two/welcome-message
+
+http://localhost:8091/two/hello-service
+
+http://localhost:8091/two/service-two-code
+
+//---
+
+http://localhost:8091/two/get-data
+
+http://localhost:8091/two/post-data
+
+
+
+## Master Service
+port - 9080
+
+http://localhost:9080/master/hello
+
+http://localhost:9080/master/service-info
+
+# MicroserviceController- using restTemplate
+
+http://localhost:9080/rest/service-one-data
+
+#Calling service one using restTemplate
+http://localhost:9080/rest/hello-one
+
+http://localhost:9080/rest/service-info-one
+
+# calling service two using resttemplate
+http://localhost:9080/rest/service-info-two
+
+#Open Feign implementation
+	// calls to service-one using openFeign
+	
+http://localhost:9080/master/hello-one
+
+http://localhost:9080/master/service-info-one
+		
+http://localhost:9080/master/hello-service-one
+	
+http://localhost:9080/master/service-one-code
+	
+http://localhost:9080/master/get-data-one
+	
+http://localhost:9080/master/post-data-one
+	
+	//Service Two methods using feign
+	
+http://localhost:9080/master/hello-two
+	
+http://localhost:9080/master/service-info-two
+
+http://localhost:9080/master/get-data-two
+
+http://localhost:9080/master/post-data-two
+
+http://localhost:9080/master/welcome-message-two
+
+http://localhost:9080/master/hello-service-two
+
+http://localhost:9080/master/service-two-code
+
+
+
+## API Gateway
+
+------------------- Master Service calls through the API Gate way ----------------
+//service one
+
+http://localhost:8080/master/hello-one
+
+http://localhost:8080/master/service-info-one
+		
+http://localhost:9080/master/hello-service-one
+	
+http://localhost:9080/master/service-one-code
+
+	//Service Two methods using feign
+	
+http://localhost:8080/master/hello-two
+
+http://localhost:8080/master/welcome-message-two
+
+http://localhost:8080/master/hello-service-two
+
+http://localhost:8080/master/service-two-code
+
+
+------------------- Service One calls through the API Gate way ----------------
+
+//-- 1 controller
+
+http://localhost:8080/one/hello
+
+http://localhost:8080/one/service-info
+
+//-- ConfigClientTestController
+
+http://localhost:8080/one/welcome-message
+
+http://localhost:8080/one/hello-service
+
+http://localhost:8080/one/service-one-code
+
+//-- MicroserviceController
+
+http://localhost:8080/one/get-data
+
+http://localhost:8080/one/post-data
+
+
+//--- MicroserviceController
+		
+http://localhost:8081/one/hello-service-one
+	
+http://localhost:8081/one/service-one-code
+
+
+------------------- Service Two calls through the API Gate way ----------------
+
+
+// -----
+
+http://localhost:8080/two/hello
+
+http://localhost:8080/two/service-info
+
+//---
+
+http://localhost:8080/two/welcome-message
+
+http://localhost:8080/two/hello-service
+
+http://localhost:8080/two/service-two-code
+
+//---
+
+http://localhost:8080/two/get-data
+
+http://localhost:8080/two/post-data
+
+
+
+
